@@ -11,12 +11,18 @@ use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Resources\Pages\Page;
 use Filament\Resources\Pages\CreateRecord;
+use App\Filament\Resources\UserResource\RelationManagers\OrderRelationManager;
+
 
 class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
+
+    protected static ?string $recordTitleAttribute = 'name';
+
+    protected static ?int $navigationSort = 1;
 
     public static function form(Form $form): Form
     {
@@ -78,9 +84,14 @@ class UserResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrderRelationManager::class
         ];
     }
+
+    public static function getGloballySearchableAttributes(): array
+{
+    return ['name'. 'email'];
+}
 
     public static function getPages(): array
     {

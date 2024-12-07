@@ -5,7 +5,8 @@ namespace App\Filament\Resources\OrderResource\RelationManagers;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\RelationManagers\RelationManager;
-use App\Filament\Resources\OrderResource\RelationManagers\Textinput;
+use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
@@ -21,7 +22,7 @@ class AddressRelationManager extends RelationManager
             ->schema([
 
                 Textinput::make('first_name')
-                ->requied()
+                ->required()
                 ->maxLength(255),
 
                 Textinput::make('last_name')
@@ -56,12 +57,27 @@ class AddressRelationManager extends RelationManager
             ]);
     }
 
+
+
+    
+
     public function table(Table $table): Table
     {
         return $table
             ->recordTitleAttribute('street_address')
             ->columns([
-                Tables\Columns\TextColumn::make('street_address'),
+                TextColumn::make('fullname')
+                ->label('Full Name'),
+
+                TextColumn::make('phone'),
+
+                TextColumn::make('city'),
+
+                TextColumn::make('state'),
+
+                TextColumn::make('zip_code'),
+
+                TextColumn::make('street_address'),
             ])
             ->filters([
                 //
